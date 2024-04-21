@@ -1,16 +1,20 @@
 package net.javaguides.springboot.service;
 
+import net.javaguides.springboot.ICustomerService;
 import net.javaguides.springboot.model.Customer;
 import net.javaguides.springboot.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
-public class CustomerService {
+public class CustomerService implements ICustomerService {
     @Autowired
     private CustomerRepository repository;
+
+    String newId = UUID.randomUUID().toString();
 
     public Customer saveCustomer(Customer customer) {
         return repository.save(customer);
