@@ -1,5 +1,6 @@
 package net.javaguides.springboot.controller;
 
+import net.javaguides.springboot.exceptions.CustomerNotFoundException;
 import net.javaguides.springboot.model.Customer;
 import net.javaguides.springboot.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class CustomerController {
     @GetMapping("{id}")
     public Customer findCustomerById(@PathVariable int id) {
         return service.getCustomerById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public Customer getCustomerByName(@PathVariable String name){
+        return service.GetCustomerByName(name);
     }
 
     @PutMapping

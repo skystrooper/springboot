@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.javaguides.springboot.exceptions.CustomerNotFoundException;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +19,7 @@ public class Customer {
     private int phone;
     @JsonProperty("address")
     private String address;
-
     private String customerId;
+
+
 }

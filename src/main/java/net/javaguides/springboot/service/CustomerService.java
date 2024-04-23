@@ -14,8 +14,6 @@ public class CustomerService implements ICustomerService {
     @Autowired
     private CustomerRepository repository;
 
-    String newId = UUID.randomUUID().toString();
-
     public Customer saveCustomer(Customer customer) {
         return repository.save(customer);
     }
@@ -26,6 +24,10 @@ public class CustomerService implements ICustomerService {
 
     public Customer getCustomerById(int id) {
         return repository.findById(id);
+    }
+
+    public Customer GetCustomerByName(String name){
+        return repository.getCustomerByName(name);
     }
 
     public String deleteCustomer(int id) {

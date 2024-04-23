@@ -1,6 +1,8 @@
 package net.javaguides.springboot.repository;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import net.javaguides.springboot.exceptions.CustomerNotFoundException;
+import net.javaguides.springboot.exceptions.IDNotFoundException;
 import net.javaguides.springboot.model.Customer;
 import org.springframework.stereotype.Repository;
 
@@ -13,29 +15,36 @@ import java.util.stream.Collectors;
 public class CustomerRepository {
 
 
-    private List<Customer> list = new ArrayList<Customer>();
-
-    public void createProducts() {
-
-        list = List.of(
-                new Customer(1, "n1", 1834720, "abcdedfffgd", "newId"),
-                new Customer(2, "n2", 20816830, "jknjsiusvdsfvd", "newId"),
-                new Customer(3, "n3", 58279420, "chshgvbusdtsugu", "newId")
-        );
-    }
+    private final List<Customer> list = new ArrayList<Customer>();
 
     public List<Customer> getAllCustomers() {
         return list;
     }
 
-    public Customer findById(int id){
-        for (int i = 0; i < list.size(); i++) {
+    public Customer findById(int id) {
+        try{
+            for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == (id)) {
+                return list.get(i);
+            }else{
+                throw new IDNotFoundException("id not found");
+            }
+        }
+        } catch (IDNotFoundException e){
+            e.printStackTrace();
+        }
+        throw new IDNotFoundException("OOPS ID not found");
+    }
+
+    public Customer getCustomerByName(String name){
+        for(int i = 0; i< list.size(); i++){
+            if (list.get(i).getName().equals(name)){
                 return list.get(i);
             }
         }
-        return null;
+        throw new CustomerNotFoundException("oops customer not found");
     }
+
 
     public List<Customer> search(String name) {
         return list.stream().filter(x -> x.getName().startsWith(name)).collect(Collectors.toList());
@@ -58,6 +67,7 @@ public class CustomerRepository {
     public String delete(Integer id) {
         list.removeIf(x -> x.getId() == (id));
         return null;
+
     }
 
     public Customer update(Customer customer) {
