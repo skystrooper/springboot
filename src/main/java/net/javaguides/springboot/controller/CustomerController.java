@@ -1,5 +1,6 @@
 package net.javaguides.springboot.controller;
 
+import jakarta.validation.Valid;
 import net.javaguides.springboot.exceptions.CustomerNotFoundException;
 import net.javaguides.springboot.model.Customer;
 import net.javaguides.springboot.service.CustomerService;
@@ -16,7 +17,7 @@ public class CustomerController {
     private CustomerService service;
 
     @PostMapping
-    public Customer addCustomer(@RequestBody Customer customer) {
+    public Customer addCustomer(@Valid @RequestBody Customer customer) {
         return service.saveCustomer(customer);
     }
 
@@ -36,7 +37,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public Customer updateCustomer(@RequestBody Customer customer) {
+    public Customer updateCustomer(@Valid @RequestBody Customer customer) {
         return service.updateProduct(customer);
     }
 
